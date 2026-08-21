@@ -1,2 +1,346 @@
-# Roblox.html
-Roblox but what
+index.html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox - Web Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body {
+            background: #0e0e1a;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+        .container {
+            background: #1a1a2e;
+            border-radius: 24px;
+            padding: 25px 20px;
+            max-width: 500px;
+            width: 95%;
+            border: 3px solid #ff4444;
+            box-shadow: 0 0 60px #ff444433;
+            text-align: center;
+        }
+        .title {
+            font-size: 38px;
+            font-weight: 900;
+            color: #ff4444;
+            text-shadow: 0 0 30px #ff444466;
+            letter-spacing: 2px;
+        }
+        .sub {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+        .avatar {
+            background: #111122;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid #2a2a4a;
+            margin-bottom: 16px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar .face {
+            font-size: 64px;
+        }
+        .avatar .name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffaa00;
+            margin-top: 4px;
+        }
+        .avatar .stats {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 4px;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            background: #111122;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #2a2a4a;
+        }
+        .stats-row div {
+            font-size: 12px;
+            color: #888;
+        }
+        .stats-row span {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffaa00;
+        }
+        .game-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .game-btn {
+            background: #222244;
+            border: none;
+            padding: 14px 8px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #333366;
+        }
+        .game-btn:hover {
+            background: #ff4444;
+            color: #fff;
+            transform: scale(1.05);
+            border-color: #ff4444;
+        }
+        .game-btn:active {
+            transform: scale(0.95);
+        }
+        .game-btn .icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .btn-primary {
+            background: #ff4444;
+            color: #fff;
+            border-color: #ff4444;
+            grid-column: span 2;
+            padding: 16px;
+            font-size: 18px;
+        }
+        .btn-primary:hover {
+            background: #ff6666;
+        }
+        .log {
+            background: #0e0e1a;
+            border-radius: 12px;
+            padding: 14px;
+            min-height: 50px;
+            border: 1px solid #2a2a4a;
+            font-size: 14px;
+            color: #ffaa00;
+            margin-top: 12px;
+        }
+        .footer {
+            margin-top: 16px;
+            font-size: 11px;
+            color: #444;
+        }
+        .inventory {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 8px 0;
+            font-size: 24px;
+        }
+        .badge {
+            background: #ff4444;
+            color: #fff;
+            border-radius: 20px;
+            padding: 2px 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">🔥 ROBLOX</div>
+    <div class="sub">WEB SIMULATOR · TUAN FATH</div>
+
+    <!-- AVATAR -->
+    <div class="avatar">
+        <div class="face" id="avatarFace">😎</div>
+        <div class="name" id="avatarName">TUAN_FATH</div>
+        <div class="stats" id="avatarStats">Level 5 · 1.2K Robux</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+        <div>💰 ROBUX <span id="robux">1200</span></div>
+        <div>⭐ LEVEL <span id="level">5</span></div>
+        <div>🏆 XP <span id="xp">240</span></div>
+    </div>
+
+    <!-- INVENTORY -->
+    <div style="background:#111122;border-radius:12px;padding:10px;margin-bottom:12px;border:1px solid #2a2a4a;">
+        <div style="font-size:12px;color:#888;">🎒 INVENTORY</div>
+        <div class="inventory" id="inventoryDisplay">
+            🎩 1 &nbsp; 🧥 1 &nbsp; 🚗 0 &nbsp; 🏠 0
+        </div>
+    </div>
+
+    <!-- GAME LIST -->
+    <div class="game-list">
+        <button class="game-btn" onclick="playGame('🏃 Jailbreak')">
+            <span class="icon">🏃</span> Jailbreak
+        </button>
+        <button class="game-btn" onclick="playGame('⚔️ BedWars')">
+            <span class="icon">⚔️</span> BedWars
+        </button>
+        <button class="game-btn" onclick="playGame('🔫 Arsenal')">
+            <span class="icon">🔫</span> Arsenal
+        </button>
+        <button class="game-btn" onclick="playGame('🏎️ Vehicle Sim')">
+            <span class="icon">🏎️</span> Vehicle Sim
+        </button>
+        <button class="game-btn" onclick="playGame('🧟 Zombie Attack')">
+            <span class="icon">🧟</span> Zombie Attack
+        </button>
+        <button class="game-btn" onclick="playGame('🏝️ Island')">
+            <span class="icon">🏝️</span> Island
+        </button>
+    </div>
+
+    <button class="game-btn btn-primary" onclick="doDaily()">📅 CLAIM DAILY REWARD</button>
+
+    <div class="log" id="log">👋 Selamat datang di Roblox, TUAN FATH!</div>
+    <div class="footer">© 2026 Roblox Simulator · Bukan Game Resmi</div>
+</div>
+
+<script>
+    // ============================================
+    // ROBLOX WEB SIMULATOR
+    // ============================================
+
+    let robux = 1200;
+    let level = 5;
+    let xp = 240;
+    let hats = 1;
+    let shirts = 1;
+    let cars = 0;
+    let houses = 0;
+    let dailyClaimed = false;
+
+    // Avatar list
+    const faces = ['😎', '😊', '🔥', '💀', '👾', '🤖', '😈', '👽', '😺', '🤠'];
+    const names = ['TUAN_FATH', 'LEGEND_GAMER', 'ROBLOX_KING', 'MYTH_PLAYER', 'ZYRO_FAN'];
+    let faceIndex = 0;
+
+    function updateUI() {
+        document.getElementById('robux').textContent = robux;
+        document.getElementById('level').textContent = level;
+        document.getElementById('xp').textContent = xp;
+        document.getElementById('avatarFace').textContent = faces[faceIndex % faces.length];
+        document.getElementById('avatarName').textContent = names[faceIndex % names.length];
+        document.getElementById('avatarStats').textContent = `Level ${level} · ${robux.toLocaleString()} Robux`;
+        document.getElementById('inventoryDisplay').innerHTML =
+            `🎩 ${hats} &nbsp; 🧥 ${shirts} &nbsp; 🚗 ${cars} &nbsp; 🏠 ${houses}`;
+    }
+
+    function log(msg, color = '#ffaa00') {
+        const el = document.getElementById('log');
+        el.textContent = msg;
+        el.style.color = color;
+    }
+
+    function playGame(gameName) {
+        if (xp < 0) xp = 0;
+
+        const reward = Math.floor(Math.random() * 30) + 10 + level * 2;
+        const robuxReward = Math.floor(Math.random() * 20) + 5;
+
+        xp += reward;
+        robux += robuxReward;
+
+        // Random event
+        const events = [
+            { msg: '🏆 Menang!', color: '#44ff88' },
+            { msg: '💥 Kalah! Tapi dapat XP', color: '#ff8800' },
+            { msg: '🎉 Double XP!', color: '#ffaa00' },
+            { msg: '🚨 Kena hack! -5 Robux', color: '#ff4444' },
+        ];
+
+        const event = events[Math.floor(Math.random() * events.length)];
+        if (event.msg.includes('hack')) {
+            robux = Math.max(0, robux - 5);
+        }
+
+        // Level up
+        if (xp >= level * 100) {
+            level++;
+            xp = 0;
+            robux += 50;
+            log(`🎉 LEVEL UP! Sekarang Level ${level}! +50 Robux!`, '#44ff88');
+            updateUI();
+            return;
+        }
+
+        log(`🎮 Main ${gameName} → ${event.msg} (+${reward} XP, +${robuxReward} Robux)`, event.color);
+        updateUI();
+
+        // Random drop item
+        if (Math.random() > 0.7) {
+            const items = ['🎩 Topi Langka!', '🧥 Jaket Eksklusif!', '🚗 Mobil Sport!', '🏠 Rumah Mewah!'];
+            const item = items[Math.floor(Math.random() * items.length)];
+            if (item.includes('Topi')) hats++;
+            else if (item.includes('Jaket')) shirts++;
+            else if (item.includes('Mobil')) cars++;
+            else if (item.includes('Rumah')) houses++;
+            log(`🎁 Dapat ${item}`, '#ff44ff');
+            updateUI();
+        }
+    }
+
+    function doDaily() {
+        if (dailyClaimed) {
+            log('⏳ Daily reward sudah diambil! Tunggu besok!', '#ff8800');
+            return;
+        }
+
+        const bonus = 100 + level * 10;
+        robux += bonus;
+        dailyClaimed = true;
+        log(`📅 Daily reward ${bonus} Robux berhasil diambil!`, '#44ff88');
+        updateUI();
+
+        setTimeout(() => {
+            dailyClaimed = false;
+            log('🔄 Daily reward tersedia lagi!', '#44ff88');
+        }, 30000); // 30 detik biar ga terlalu lama
+    }
+
+    // Random avatar change
+    setInterval(() => {
+        faceIndex = (faceIndex + 1) % faces.length;
+        updateUI();
+    }, 15000);
+
+    // Auto XP gain
+    setInterval(() => {
+        if (xp < level * 100) {
+            xp += 1;
+            updateUI();
+        }
+    }, 5000);
+
+    // Init
+    updateUI();
+    log('🔥 Roblox siap, TUAN FATH! Pilih game dan mulai main!', '#ff4444');
+</script>
+
+</body>
+</html>
